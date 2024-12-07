@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Poster Papan Pengumuman</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f7f3e9;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            overflow-y: auto; 
+        }
+
+        .container {
+            background: #f4f1e0;
+            width: 90%;
+            max-width: 1200px;
+            border: 8px solid #d1b894;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+            padding: 20px;
+            border-radius: 12px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #b09878;
+            padding-bottom: 10px;
+        }
+
+        .header h1 {
+          font-family: 'Poppins', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #d1b894;
+        }
+
+        .poster-board {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            position: relative;
+        }
+
+        .poster {
+            width: 100%;
+            aspect-ratio: 210/297; 
+            background-color: #e8e4d5;
+            border: 5px solid #d4c7b5;
+            border-radius: 8px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: #444;
+            font-weight: bold;
+            font-size: 18px;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            animation: paperBlow 6s infinite ease-in-out;
+        }
+
+        .poster:hover {
+            transform: rotate(2deg) scale(1.05);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+
+
+        @keyframes paperBlow {
+            0% {
+                transform: rotate(0deg) translateX(0) translateY(0);
+            }
+            25% {
+                transform: rotate(2deg) translateX(10px) translateY(5px);
+            }
+            50% {
+                transform: rotate(0deg) translateX(0) translateY(0);
+            }
+            75% {
+                transform: rotate(-2deg) translateX(-10px) translateY(-5px);
+            }
+            100% {
+                transform: rotate(0deg) translateX(0) translateY(0);
+            }
+        }
+
+        .poster img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .poster-pin {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            font-size: 30px;
+            color: #c0392b;
+            z-index: 1;
+        }
+
+        /* Fullscreen Overlay */
+        .fullscreen-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: rgba(0, 0, 0, 0.9);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 999;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        .fullscreen-overlay.active {
+            display: flex;
+        }
+
+        .fullscreen-poster img {
+            max-width: 100%;
+            max-height: 100vh;
+            object-fit: contain;
+        }
+
+        .exit-button {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            font-size: 1.2rem;
+            font-weight: bold;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: transform 0.2s ease;
+        }
+
+        .exit-button:hover {
+            transform: scale(1.1);
+        }
+
+        .close-text {
+            position: absolute;
+            bottom: 20px;
+            color: #fff;
+            font-size: 1.2rem;
+            text-align: center;
+            width: 100%;
+            animation: fadeInText 2s ease-out;
+        }
+
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeInText {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Abel X.1/2</h1>
+        </div>
+        <div class="poster-board">
+            <div class="poster" onclick="openFullscreen('https://cloudphoto.ro/ib/zrL9wPv616Ng8DG_1733558366.png')">
+                <div class="poster-pin"></div>
+                <img src="https://cloudphoto.ro/ib/zrL9wPv616Ng8DG_1733558366.png" alt="Poster A4 (1)">
+            </div>
+            <div class="poster" onclick="openFullscreen('https://cloudphoto.ro/ib/wFFfSLg9C8ZTIG0_1733558365.png')">
+                <div class="poster-pin"></div>
+                <img src="https://cloudphoto.ro/ib/wFFfSLg9C8ZTIG0_1733558365.png" alt="Poster A4 (2)">
+            </div>
+            <div class="poster" onclick="openFullscreen('https://cloudphoto.ro/ib/igcbPI8uekLqfMN_1733558364.png')">
+                <div class="poster-pin"></div>
+                <img src="https://cloudphoto.ro/ib/igcbPI8uekLqfMN_1733558364.png" alt="Poster A4 (3)">
+            </div>
+        </div>
+
+        <div class="fullscreen-overlay" id="fullscreenOverlay" onclick="closeFullscreen()">
+            <button class="exit-button" onclick="closeFullscreen()">×</button>
+            <div class="fullscreen-poster" id="fullscreenPoster"></div>
+            <div class="close-text">Klik di mana saja untuk menutup</div>
+        </div>
+    </div>
+
+    <script>
+
+        function openFullscreen(imageUrl) {
+            const overlay = document.getElementById('fullscreenOverlay');
+            const poster = document.getElementById('fullscreenPoster');
+            poster.innerHTML = `<img src="${imageUrl}" alt="Full-Screen Poster" />`;
+            overlay.classList.add('active');
+        }
+
+
+        function closeFullscreen() {
+            const overlay = document.getElementById('fullscreenOverlay');
+            overlay.classList.remove('active');
+        }
+    </script>
+</body>
+</html>
